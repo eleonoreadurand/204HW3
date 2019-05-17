@@ -1,0 +1,11 @@
+---
+title: "HW3"
+author: "Eleonore Durand and Teresa Fukuda"
+date: "May 17, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
