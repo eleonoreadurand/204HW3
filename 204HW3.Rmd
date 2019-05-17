@@ -48,3 +48,20 @@ summary(yeslm)
 
 ```
 
+```{r}
+#4% risk reduction is for one whale 
+#store coefficients as variables
+intercept <- yeslm$coefficients[1]
+risk <- yeslm$coefficients[2]
+bid<- yeslm$coefficients[3]
+nep<- yeslm$coefficients[4]
+income1pct <- yeslm$coefficients[5]
+poor <- yeslm$coefficients[6]
+rich <- yeslm$coefficients[7]
+veryrich <- yeslm$coefficients[8]
+to50 <- yeslm$coefficients[9]
+to40 <- yeslm$coefficients[10]
+to60 <- yeslm$coefficients[11]
+to30 <- yeslm$coefficients[12]
+```
+
