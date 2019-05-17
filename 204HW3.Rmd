@@ -13,6 +13,38 @@ knitr::opts_chunk$set(echo = TRUE)
 #load packages and read in data
 
 library(tidyverse)
-surveydata<- read_csv("HW3Data.csv")
+surveydata<- read_csv("HW3Data.csv") %>% 
+  mutate(Risk = risk/100
+  ) %>% 
+  select(Risk, bid, vote, NEP, income, age)
+
+
+
+
+```
+
+```{r}
+#linear model
+
+yeslm<- lm(vote ~ Risk + bid + NEP + income + age, data=surveydata)
+yeslm
+#intercept: 0.119698
+# Risk: 0.074449
+#bid: -0.001070
+#NEP: 0.015864
+#middle is reference level for income 
+#income1% : 0.008828
+#incomepoor: 0.002739
+#incomerich: 0.007489
+#incomevery rich: 0.046792
+#age oversixty is reference level
+#tofifty: 0.009982
+#toforty: -0.020119
+#tosixty: -0.016226 
+#tothirty: 0.020440
+
+summary(yeslm)
+
+
 ```
 
