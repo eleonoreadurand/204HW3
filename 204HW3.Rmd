@@ -24,7 +24,7 @@ surveydata<- read_csv("HW3Data.csv") %>%
 ```
 
 ```{r}
-#linear model
+#1. Create a linear model
 
 yeslm<- lm(vote ~ Risk + bid + NEP + income + age, data=surveydata)
 yeslm
@@ -49,7 +49,9 @@ summary(yeslm)
 ```
 
 ```{r}
-#4% risk reduction is for one whale 
+#2. calculate the value of a whale death
+#4% risk reduction is for one whale -- use the linear regression to calculate the change in predicted bidi when risk is reduced by 4% (the model is linear so can take this from any two points on the model, all else the same?)
+
 #store coefficients as variables
 intercept <- yeslm$coefficients[1]
 risk <- yeslm$coefficients[2]
@@ -63,5 +65,17 @@ to50 <- yeslm$coefficients[9]
 to40 <- yeslm$coefficients[10]
 to60 <- yeslm$coefficients[11]
 to30 <- yeslm$coefficients[12]
+
+#the equation of the model
+y= intercept + x1*risk + x2 *bid + x3*nep +x4*income1pct + x5*poor + x6*rich + x7* veryrich + x6*to50 +x7*to40 +x8*to60 +x9*to30
+
+# default levels are income: middle, age category: over 60
+
+# need to solve for x3!
+
+x3= (y-  intercept + x1*risk + x2 *bid +x4*income1pct + x5*poor + x6*rich + x7* veryrich + x6*to50 +x7*to40 +x8*to60 +x9*to30)/nep
+
+### no idea how to do this in R!
+
 ```
 
