@@ -9,3 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+#load packages and read in data
+
+library(tidyverse)
+surveydata<- read_csv("HW3Data.csv")
+```
+
