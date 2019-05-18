@@ -53,7 +53,7 @@ summary(yeslm)
 #4% risk reduction is for one whale -- use the linear regression to calculate the change in predicted bidi when risk is reduced by 4% (the model is linear so can take this from any two points on the model, all else the same?)
 
 #store coefficients as variables
-<<<<<<< HEAD
+
 interceptcoef <- yeslm$coefficients[1]
 riskcoef <- yeslm$coefficients[2]
 bidcoef<- yeslm$coefficients[3]
@@ -84,6 +84,9 @@ predicteddata <- surveydata %>%
 
 whalevalue= ((interceptcoef + riskcoef* 0.44+ nepcoef*37 +  to30coef*1- predicteddata$probresponse[2])/-bidcoef)-((interceptcoef + riskcoef* 0.4+ nepcoef*37 +  to30coef*1- predicteddata$probresponse[2])/-bidcoef)
 
+
+
+
 #the equation of the model
 y= interceptcoef + x1*riskcoef + x2 *bidcoef + x3*nepcoef +x4*income1pctcoef + x5*poorcoef + x6*richcoef + x7* veryrichcoef + x6*to50coef +x7*to40coef +x8*to60coef +x9*to30coef
 
@@ -95,6 +98,29 @@ x3= (y-  intercept + x1*risk + x2 *bid +x4*income1pct + x5*poor + x6*rich + x7* 
 
 ### no idea how to do this in R!
 
+bidlm<- lm(bid~ Risk + NEP+ income+ age + probresponse, data= predicteddata)
 
+bidlm
+
+predictedbidval <-predicteddata %>% 
+   mutate(wtp= predict(bidlm, newdata=predicteddata, type="response"))
+
+person<- data.frame(Risk = 0.6, NEP = 15, income= "very_rich", age = "tothirty", probresponse = 0.7)
+
+personbid <-predict(bidlm, newdata=person, type = "response")
+
+person2<- data.frame(Risk = 0.6, NEP = 37, income= "middle", age = "tothirty", probresponse = 0.7)
+personbid2 <-predict(bidlm, newdata=person2, type = "response")
+
+final <-predicteddata %>% 
+  select(NEP, income, age) %>% 
+  mutate(probresponse = 0.7) %>% 
+  mutate(Risk= 0.6) %>% 
+   mutate(wtp= predict(bidlm, newdata=., type="response"))
+
+meanwtp <- mean(final$wtp)
+
+totalbenefit <- meanwtp*150000
+ 
 ```
 
