@@ -51,17 +51,35 @@ summary(yeslm)
 ```{r}
 #4% risk reduction is for one whale 
 #store coefficients as variables
-intercept <- yeslm$coefficients[1]
-risk <- yeslm$coefficients[2]
-bid<- yeslm$coefficients[3]
-nep<- yeslm$coefficients[4]
-income1pct <- yeslm$coefficients[5]
-poor <- yeslm$coefficients[6]
-rich <- yeslm$coefficients[7]
-veryrich <- yeslm$coefficients[8]
-to50 <- yeslm$coefficients[9]
-to40 <- yeslm$coefficients[10]
-to60 <- yeslm$coefficients[11]
-to30 <- yeslm$coefficients[12]
+interceptcoef <- yeslm$coefficients[1]
+riskcoef <- yeslm$coefficients[2]
+bidcoef<- yeslm$coefficients[3]
+nepcoef<- yeslm$coefficients[4]
+income1pctcoef <- yeslm$coefficients[5]
+poorcoef <- yeslm$coefficients[6]
+richcoef <- yeslm$coefficients[7]
+veryrichcoef <- yeslm$coefficients[8]
+to50coef <- yeslm$coefficients[9]
+to40coef <- yeslm$coefficients[10]
+to60coef <- yeslm$coefficients[11]
+to30coef <- yeslm$coefficients[12]
+
+# probyes= interceptcoef + riskcoef* risk+ bidcoef*bid + nepcoef*nep+ income1pctcoef*income1pct + poorcoef*poor+ richcoef*rich + veryrichcoef*very rich + to50coef*to50 + to40coef * to40 + to60coef*to60 + to30coef*to30
+
+#bid*bidcoef= interceptcoef + riskcoef* risk+ nepcoef*nep+ income1pctcoef*income1pct + poorcoef*poor+ richcoef*rich + veryrichcoef*very rich + to50coef*to50 + to40coef * to40 + to60coef*to60 + to30coef*to30- probyes
+ 
+#bid= (interceptcoef + riskcoef* risk+ nepcoef*nep+ income1pctcoef*income1pct + poorcoef*poor+ richcoef*rich + veryrichcoef*very rich + to50coef*to50 + to40coef * to40 + to60coef*to60 + to30coef*to30- probyes)/-bidcoef
+
+
+
+predicteddata <- surveydata %>% 
+  mutate(probresponse= predict(yeslm, newdata=surveydata, type="response"))
+
+#person we chose: 80= (interceptcoef + riskcoef* 0.2+ nepcoef*15 + veryrichcoef*1 + to30coef*1- predicteddata$probresponse[1])/-bidcoef
+
+#100= (interceptcoef + riskcoef* 0.4+ nepcoef*37 +  to30coef*1- predicteddata$probresponse[2])/-bidcoef
+
+whalevalue= ((interceptcoef + riskcoef* 0.44+ nepcoef*37 +  to30coef*1- predicteddata$probresponse[2])/-bidcoef)-((interceptcoef + riskcoef* 0.4+ nepcoef*37 +  to30coef*1- predicteddata$probresponse[2])/-bidcoef)
+
 ```
 
