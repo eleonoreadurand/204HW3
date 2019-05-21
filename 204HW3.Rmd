@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 #load packages and read in data
 
 library(tidyverse)
+library(stargazer)
+
 surveydata<- read_csv("HW3Data.csv") %>% 
   mutate(Risk = risk/100
   ) %>% 
@@ -45,6 +47,7 @@ yeslm
 
 summary(yeslm)
 
+stargazer(yeslm, type = "html")
 
 ```
 
@@ -87,16 +90,16 @@ whalevalue= ((interceptcoef + riskcoef* 0.44+ nepcoef*37 +  to30coef*1- predicte
 
 
 
-#the equation of the model
-y= interceptcoef + x1*riskcoef + x2 *bidcoef + x3*nepcoef +x4*income1pctcoef + x5*poorcoef + x6*richcoef + x7* veryrichcoef + x6*to50coef +x7*to40coef +x8*to60coef +x9*to30coef
-
-# default levels are income: middle, age category: over 60
-
-# need to solve for x3!
-
-x3= (y-  intercept + x1*risk + x2 *bid +x4*income1pct + x5*poor + x6*rich + x7* veryrich + x6*to50 +x7*to40 +x8*to60 +x9*to30)/nep
-
-### no idea how to do this in R!
+# #the equation of the model
+# y= interceptcoef + x1*riskcoef + x2 *bidcoef + x3*nepcoef +x4*income1pctcoef + x5*poorcoef + x6*richcoef + x7* veryrichcoef + x6*to50coef +x7*to40coef +x8*to60coef +x9*to30coef
+# 
+# # default levels are income: middle, age category: over 60
+# 
+# # need to solve for x3!
+# 
+# x3= (y-  intercept + x1*risk + x2 *bid +x4*income1pct + x5*poor + x6*rich + x7* veryrich + x6*to50 +x7*to40 +x8*to60 +x9*to30)/nep
+# 
+# ### no idea how to do this in R!
 
 bidlm<- lm(bid~ Risk + NEP+ income+ age + probresponse, data= predicteddata)
 
