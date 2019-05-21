@@ -25,7 +25,7 @@ surveydata<- read_csv("HW3Data.csv") %>%
 
 ```
 
-```{r}
+```{r, results="asis"}
 #1. Create a linear model
 
 yeslm<- lm(vote ~ Risk + bid + NEP + income + age, data=surveydata)
