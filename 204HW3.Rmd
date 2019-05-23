@@ -98,15 +98,15 @@ predictedbidval <-predicteddata %>%
 
 # 3. Pick three people and calculate their bids
 
-person<- data.frame(Risk = 0.6, NEP = 15, income= "very_rich", age = "tothirty", probresponse = 0.7)
+person<- data.frame(Risk = 0.6, NEP = 15, income= "very_rich", age = "tothirty", probresponse = 0.5)
 
 personbid <-predict(bidlm, newdata=person, type = "response")
 
-person2<- data.frame(Risk = 0.6, NEP = 37, income= "middle", age = "tothirty", probresponse = 0.7)
+person2<- data.frame(Risk = 0.6, NEP = 37, income= "middle", age = "tothirty", probresponse = 0.5)
 
 personbid2 <-predict(bidlm, newdata=person2, type = "response")
 
-person3 <- data.frame(Risk = 0.6, NEP = 32, income= "one_percent", age = "tothirty", probresponse = 0.7)
+person3 <- data.frame(Risk = 0.6, NEP = 32, income= "one_percent", age = "tothirty", probresponse = 0.5)
 
 personbid3 <-predict(bidlm, newdata=person3, type = "response")
 
@@ -114,7 +114,7 @@ personbid3 <-predict(bidlm, newdata=person3, type = "response")
 
 final <-predicteddata %>% 
   select(NEP, income, age) %>% 
-  mutate(probresponse = 0.7) %>% 
+  mutate(probresponse = 0.5) %>% 
   mutate(Risk= 0.6) %>% 
    mutate(wtp= predict(bidlm, newdata=., type="response"))
 
@@ -129,9 +129,11 @@ totalbenefit <- meanwtp*150000
 netbenefit <- totalbenefit -7000000
  
 # 7. Cost of carbon
-carboncost <- 50
+carboncost <- 50 
 
 # 8. 
+
+socialvalue <-totalbenefit
 # consumers come out with benefit of 60% risk reduction
 # producers come out the same (costs are compensated by the selling of carbon credit)
 # social value = consumer welfare in whales saved 
